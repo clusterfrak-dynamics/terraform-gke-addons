@@ -9,6 +9,7 @@ locals {
       repository             = "https://kubernetes-charts.storage.googleapis.com/"
       enabled                = false
       default_network_policy = true
+      use_l7                 = false
       ingress_cidr           = "0.0.0.0/0"
       chart_version          = "1.35.0"
       version                = "0.30.0"
