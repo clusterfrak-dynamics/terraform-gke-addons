@@ -27,8 +27,6 @@ controller:
   kind: "DaemonSet"
   publishService:
     enabled: true
-  config:
-    use-proxy-protocol: "true"
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:
@@ -49,10 +47,6 @@ controller:
     externalTrafficPolicy: "Cluster"
   publishService:
     enabled: true
-  config:
-    use-proxy-protocol: "false"
-    use-forwarded-headers: "true"
-    proxy-real-ip-cidr: "0.0.0.0/0"
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:
