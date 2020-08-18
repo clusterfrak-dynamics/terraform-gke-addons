@@ -96,18 +96,6 @@ resource "helm_release" "nginx_ingress" {
 
 }
 
-data "kubernetes_service" "nginx_ingress_service" {
-  metadata {
-    name      = "nginx-ingress-controller"
-    namespace = local.nginx_ingress["namespace"]
-  }
-  depends_on = [
-    helm_release.nginx_ingress,
-  ]
-}
-
-
-
 resource "kubernetes_network_policy" "nginx_ingress_default_deny" {
   count = local.nginx_ingress["enabled"] && local.nginx_ingress["default_network_policy"] ? 1 : 0
 
@@ -189,7 +177,8 @@ resource "kubernetes_network_policy" "nginx_ingress_allow_ingress" {
 
 output "nginx_ingress" {
   value = map(
-    "lb_ip", data.kubernetes_service.nginx_ingress_service.load_balancer_ingress
+    "name", local.nginx_ingress["name"],
+    "namespace", local.nginx_ingress["namespace"]
   )
 }
 
