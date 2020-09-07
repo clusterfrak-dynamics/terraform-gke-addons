@@ -28,3 +28,13 @@ jobs:
 
     - name: Terraform Format
       run: terraform fmt -check
+
+    - name: Terraform Validate
+      run: terraform validate
+      env:
+        AWS_REGION: eu-west-3
+
+    - name: Semantic Release
+      uses: cycjimmy/semantic-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
