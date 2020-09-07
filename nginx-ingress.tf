@@ -147,9 +147,9 @@ resource "kubernetes_network_policy" "nginx_ingress_allow_ingress" {
   spec {
     pod_selector {
       match_expressions {
-        key      = "app"
+        key      = "app.kubernetes.io/name"
         operator = "In"
-        values   = ["nginx-ingress"]
+        values   = ["ingress-nginx"]
       }
     }
 
