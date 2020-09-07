@@ -3,17 +3,16 @@ locals {
   nginx_ingress = merge(
     local.helm_defaults,
     {
-      name                   = "nginx-ingress"
+      name                   = "ingress-nginx"
       namespace              = "ingress-nginx"
-      chart                  = "nginx-ingress"
-      repository             = "https://kubernetes-charts.storage.googleapis.com/"
+      chart                  = "ingress-nginx"
+      repository             = "https://kubernetes.github.io/ingress-nginx"
+      use_l7                 = false
       enabled                = false
       default_network_policy = true
-      use_l7                 = false
       ingress_cidr           = "0.0.0.0/0"
-      chart_version          = "1.35.0"
-      version                = "0.30.0"
-      podsecuritypolicy      = false
+      chart_version          = "2.15.0"
+      version                = "0.35.0"
     },
     var.nginx_ingress
   )
@@ -30,7 +29,7 @@ controller:
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:
-  enabled: ${local.nginx_ingress["podsecuritypolicy"]}
+  enabled: true
 VALUES
 
   values_nginx_ingress_l7 = <<VALUES
@@ -50,7 +49,7 @@ controller:
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:
-  enabled: ${local.nginx_ingress["podsecuritypolicy"]}
+  enabled: true
 VALUES
 
 }
